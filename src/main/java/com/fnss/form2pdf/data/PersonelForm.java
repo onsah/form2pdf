@@ -1,15 +1,21 @@
 package com.fnss.form2pdf.data;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
+
+import com.fnss.form2pdf.MdGen;
 
 public class PersonelForm {
+    private static final SimpleDateFormat FMT = new SimpleDateFormat("dd/MM/yyyy");
+
     private String ad;
     private String soyad;
-    private long tcNo;
-    private Date dogumTarihi;
+    private GregorianCalendar dogumTarihi;
     private String email;
     private String dogumYeri;
+    private String ikametgah;
     private String il;
+    private String ilce;
     private long sgkNo;
     private long iletisimNo;
     private String universiteAdi;
@@ -18,33 +24,35 @@ public class PersonelForm {
     private String departman;
     private String anneAdi;
     private String babaAdi;
+    private long tcNo;
 
     public PersonelForm(
-        String ad,
-        String soyad,
-        long tcNo,
-        Date dogumTarihi,
+        String ad, 
+        String soyad, 
+        GregorianCalendar dogumTarihi, 
         String email,
-        String dogumYeri,
-        String il,
-        long sgkNo,
-        long iletisimNo,
+        String dogumYeri, 
+        String ikametgah, 
+        String il, 
+        String ilce,
+        long sgkNo, 
+        long iletisimNo, 
         String universiteAdi,
-        String bolumAdi,
-        int sinif,
-        String departman,
-        String anneAdi,
-        String babaAdi
+        String bolumAdi, 
+        int sinif, 
+        String departman, 
+        String anneAdi, 
+        String babaAdi,
+        long tcNo
     ) {
         setAd(ad);
         setSoyad(soyad);
-        setTcNo(tcNo);
-        setDogumTarihi(dogumTarihi);
-        setEmail(email);
         setDogumTarihi(dogumTarihi);
         setEmail(email);
         setDogumYeri(dogumYeri);
+        setIkametgah(ikametgah);
         setIl(il);
+        setIlce(ilce);
         setSgkNo(sgkNo);
         setIletisimNo(iletisimNo);
         setUniversiteAdi(universiteAdi);
@@ -53,6 +61,23 @@ public class PersonelForm {
         setDepartman(departman);
         setAnneAdi(anneAdi);
         setBabaAdi(babaAdi);
+        setTcNo(tcNo);
+    }
+
+    public String getIlce() {
+        return ilce;
+    }
+
+    public void setIlce(String ilce) {
+        this.ilce = ilce;
+    }
+
+    public String getIkametgah() {
+        return ikametgah;
+    }
+
+    public void setIkametgah(String ikametgah) {
+        this.ikametgah = ikametgah;
     }
 
     public String getAd() {
@@ -147,11 +172,11 @@ public class PersonelForm {
         this.email = email;
     }
 
-    public Date getDogumTarihi() {
+    public GregorianCalendar getDogumTarihi() {
         return dogumTarihi;
     }
 
-    public void setDogumTarihi(Date dogumTarihi) {
+    public void setDogumTarihi(GregorianCalendar dogumTarihi) {
         this.dogumTarihi = dogumTarihi;
     }
 
@@ -173,5 +198,27 @@ public class PersonelForm {
 
     public void setAd(String ad) {
         this.ad = ad;
+    }
+
+    @Override
+    public String toString() {
+        MdGen gen = new MdGen();
+
+        gen.addHeader(2, "Ad: " + getAd());
+        gen.addHeader(2, "Soyad: " + getSoyad());
+        gen.addHeader(2, "Doğum tarihi: " + FMT.format(getDogumTarihi().getTime()));
+        gen.addHeader(2, "İl: " + getIl());
+        gen.addHeader(2, "İlce: " + getIlce());
+        gen.addHeader(2, "Sgk no: " + String.valueOf(getSgkNo()));
+        gen.addHeader(2, "İletişim numarası: " + String.valueOf(getIletisimNo()));
+        gen.addHeader(2, "Üniversite adı: " + getUniversiteAdi());
+        gen.addHeader(2, "Üniversite Bölümü: " + getBolumAdi());
+        gen.addHeader(2, "Sınıf: " + String.valueOf(getSinif()));
+        gen.addHeader(2, "Departman: " + getDepartman());
+        gen.addHeader(2, "Anne adı: " + getAnneAdi());
+        gen.addHeader(2, "Baba adı: " + getBabaAdi());
+        gen.addHeader(2, "TC no: " + String.valueOf(getTcNo()));
+        
+        return gen.toString();
     }
 }
