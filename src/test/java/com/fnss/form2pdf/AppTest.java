@@ -59,7 +59,7 @@ public class AppTest {
         System.out.println(pForm.toString());
     }
 
-    @Test
+    // @Test
     public void testDatabase() throws SQLException {
         Database db = new Database();
         String name = "fnss";
