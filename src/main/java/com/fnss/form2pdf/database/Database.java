@@ -10,9 +10,12 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 import com.fnss.form2pdf.data.PersonelForm;
+import com.fnss.form2pdf.data.SaglikForm;
+import com.mysql.cj.jdbc.Driver;
 
 public class Database {
     private static final String PERSONEL_TABLE = "personel";
+    private static final String SAGPLIK_TABLE = "saglik";
 
     private static final GregorianCalendar dummy = new GregorianCalendar();
     
@@ -33,6 +36,8 @@ public class Database {
     private static final int ANNE_INDEX         = 15;
     private static final int BABA_INDEX         = 16;
     private static final int TC_INDEX           = 17;
+
+
     
     private final String SERVER_IP;
     private final String MYSQL_URI;
@@ -40,7 +45,7 @@ public class Database {
     private Connection mConnection = null;
 
     public Database() {
-        SERVER_IP = "localhost";
+        SERVER_IP = "127.0.0.1";
         MYSQL_URI = "jdbc:mysql://" + SERVER_IP + ":3306/";
     }
 
@@ -49,13 +54,16 @@ public class Database {
         MYSQL_URI = "jdbc:mysql://" + SERVER_IP + ":3306/";
     }
 
-    public void connect(String name, String user, String password) throws SQLException {
+    public void connect(String name, String user, String password) throws SQLException, ClassNotFoundException {
+        new Driver();
         mConnection = DriverManager.getConnection(MYSQL_URI + name, user, password);
     }
 
     public void disconnect() throws SQLException {
-        mConnection.close();
-        mConnection = null;
+        if (mConnection != null) {
+            mConnection.close();
+            mConnection = null;
+        }
     }
 
     public List<PersonelForm> getPersonels() throws SQLException {
@@ -91,6 +99,38 @@ public class Database {
                     anneAdi, babaAdi, tcNo.toBigInteger().longValue()
                 ));
             }
+        } finally {
+            stmt.close();
+        }
+        return forms;
+    }
+
+    public List<SaglikForm> getSaglikForms() throws SQLException {
+        Statement stmt = null;
+        ArrayList<SaglikForm> forms = new ArrayList<>();
+        
+        try {
+            stmt = mConnection.createStatement();
+            ResultSet rs = stmt.executeQuery("Select * from " + PERSONEL_TABLE);
+            while (rs.next()) {
+
+            }
+            String ad = rs.getString(1);
+            String soyad = rs.getString(2);
+            long tcNo = rs.getLong(11);
+            // GregorianCalendar dtarihi = (3);
+            long telno = rs.getLong(4);
+            String hastalik = rs.getString(5);
+            String ilac = rs.getString(6);
+            String ameliyat = rs.getString(7);
+            String alerji = rs.getString(10);
+            double boy =  rs.getDouble(8);
+            boolean sigara = rs.getBoolean(9);  
+            forms.add(new SaglikForm(
+                ad, soyad, tcNo, dummy,
+                telno, hastalik, ilac, ameliyat,
+                alerji, boy, sigara
+            ));       
         } finally {
             stmt.close();
         }

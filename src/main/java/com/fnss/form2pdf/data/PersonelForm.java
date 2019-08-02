@@ -207,6 +207,9 @@ public class PersonelForm {
         gen.addHeader(2, "Ad: " + getAd());
         gen.addHeader(2, "Soyad: " + getSoyad());
         gen.addHeader(2, "Doğum tarihi: " + FMT.format(getDogumTarihi().getTime()));
+        gen.addHeader(2, "Email: " + getEmail());
+        gen.addHeader(2, "Doğum yeri: " + getDogumYeri());
+        gen.addHeader(2, "İkametgah: " + getIkametgah());
         gen.addHeader(2, "İl: " + getIl());
         gen.addHeader(2, "İlce: " + getIlce());
         gen.addHeader(2, "Sgk no: " + String.valueOf(getSgkNo()));

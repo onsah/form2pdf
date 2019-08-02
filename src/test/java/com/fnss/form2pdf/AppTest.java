@@ -3,6 +3,7 @@ package com.fnss.form2pdf;
 import org.junit.Test;
 import com.fnss.form2pdf.MdGen;
 import com.fnss.form2pdf.data.PersonelForm;
+import com.fnss.form2pdf.data.SaglikForm;
 import com.fnss.form2pdf.database.*;
 
 import static org.junit.Assert.*;
@@ -59,8 +60,26 @@ public class AppTest {
         System.out.println(pForm.toString());
     }
 
+    @Test
+    public void testSaglikForm() {
+        SaglikForm sForm = new SaglikForm(
+            "Burax",
+            "Mehmex",
+            42424242424l,
+            new GregorianCalendar(1243, 5, 12),
+            5056421235l,
+            "Ölü",
+            "Kokain",
+            "Kafa",
+            "Uzaylı anteni",
+            1.55,
+            true
+        );
+        System.out.println(sForm.toString());
+    }
+
     // @Test
-    public void testDatabase() throws SQLException {
+    public void testDatabase() throws SQLException, ClassNotFoundException {
         Database db = new Database();
         String name = "fnss";
         String userName = "root";
