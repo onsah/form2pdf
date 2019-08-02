@@ -15,7 +15,7 @@ import com.mysql.cj.jdbc.Driver;
 
 public class Database {
     private static final String PERSONEL_TABLE = "personel";
-    private static final String SAGPLIK_TABLE = "saglik";
+    private static final String SAGLIK_TABLE = "saglik";
 
     private static final GregorianCalendar dummy = new GregorianCalendar();
     
@@ -111,7 +111,7 @@ public class Database {
         
         try {
             stmt = mConnection.createStatement();
-            ResultSet rs = stmt.executeQuery("Select * from " + PERSONEL_TABLE);
+            ResultSet rs = stmt.executeQuery("Select * from " + SAGLIK_TABLE);
             while (rs.next()) {
 
             }
@@ -136,17 +136,6 @@ public class Database {
         }
         return forms;
     }
-
-    /* public ResultSet executeQuery(String query) throws SQLException {
-        Statement stmt = null;
-        try {
-            stmt = mConnection.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            
-        } finally {
-            stmt.close();
-        }
-    } */
 
     public boolean isConnected() {
         return mConnection != null;
