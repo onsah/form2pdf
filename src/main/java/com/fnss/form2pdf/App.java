@@ -32,19 +32,16 @@ public final class App {
     public static void main(String[] args) throws SQLException, ClassNotFoundException, UnsupportedEncodingException, FileNotFoundException {
         Database db = new Database();
         
-        if (args.length < 2) {
+        if (args.length < 1) {
             System.out.println("Usage: form2text <tc-no>");  
             return; 
         }
-        long tcNo = Long.parseLong(args[1]);
-        // String name = args[1];
+        long tcNo = Long.parseLong(args[0]);
         PrintWriter pwPersonel = null, pwSaglik = null;
         try {
             db.connect(DB_NAME, DB_USER, DB_PW);
             List<PersonelForm> personelForms = db.getPersonels();
             List<SaglikForm> saglikForms = db.getSaglikForms();
-            System.out.println(personelForms);
-            System.out.println(saglikForms);
             Optional<PersonelForm> pForm = personelForms.stream()
                 .filter(p -> p.getTcNo() == tcNo)
                 .findFirst();
@@ -73,6 +70,11 @@ public final class App {
                 pwPersonel.close();
             if (pwSaglik != null)
                 pwSaglik.close();
+        }
+        if (!gotError) {
+            System.out.println("Files generated successfully");
+        } else {
+            System.exit(1);
         }
     }
 }
