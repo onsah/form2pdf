@@ -37,48 +37,6 @@ public class AppTest {
     }
 
     @Test
-    public void testPersonelForm() {
-        PersonelForm pForm = new PersonelForm(
-            "Ahmet",
-            "Kaya",
-            new GregorianCalendar(2000, 5, 5),
-            "hello@fnss.com",
-            "Mars",
-            "International space station",
-            "Kahire",
-            "uzunsokak",
-            676757567567l,
-            5056421235l,
-            "Bilkent",
-            "Bilgisayar müh.",
-            2,
-            "PLM",
-            "Ayşe",
-            "Burax",
-            42424242424l
-        );
-        System.out.println(pForm.toString());
-    }
-
-    @Test
-    public void testSaglikForm() {
-        SaglikForm sForm = new SaglikForm(
-            "Burax",
-            "Mehmex",
-            42424242424l,
-            new GregorianCalendar(1243, 5, 12),
-            5056421235l,
-            "Ölü",
-            "Kokain",
-            "Kafa",
-            "Uzaylı anteni",
-            1.55,
-            true
-        );
-        System.out.println(sForm.toString());
-    }
-
-    // @Test
     public void testDatabase() throws SQLException, ClassNotFoundException {
         Database db = new Database();
         String name = "fnss";

@@ -1,14 +1,21 @@
-## Ad: Ahmet
-## Soyad: Kaya
-## Doğum tarihi: 05/06/2000
-## İl: Kahire
-## İlce: uzunsokak
-## Sgk no: 676757567567
-## İletişim numarası: 5056421235
-## Üniversite adı: Bilkent
-## Üniversite Bölümü: Bilgisayar müh.
-## Sınıf: 2
-## Departman: PLM
-## Anne adı: Ayşe
-## Baba adı: Burax
-## TC no: 42424242424
+## Form2Text
+Project to create text files of users from https://github.com/mervecnn/FnssStajForm.
+
+## Building
+Building is done using maven
+```
+mvn clean compile assembly:single
+```
+The executable jar file can be found in `./target/` directory
+
+## Usage
+Make sure database is working before running the program
+```
+$ java -jar target/form2pdf-1.0-jar-with-dependencies.jar
+$ Usage: form2text <tc-no>
+```
+
+```
+$ java -jar target/form2pdf-1.0-jar-with-dependencies.jar <tc-no>
+```
+This command will create two files named `personel.md` and `saglik.md` on working directory if the tc no exists in database.

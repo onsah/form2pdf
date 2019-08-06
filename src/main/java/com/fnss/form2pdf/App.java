@@ -20,6 +20,8 @@ public final class App {
     private static final String PERSONEL_FILE = "personel.md";
     private static final String SAGLIK_FILE = "saglik.md";
 
+    private static boolean gotError = false;
+
     private App() {
     }
 
@@ -31,9 +33,11 @@ public final class App {
         Database db = new Database();
         
         if (args.length < 2) {
-            System.out.println("Usage: form <name>");   
+            System.out.println("Usage: form2text <tc-no>");  
+            return; 
         }
-        String name = args[1];
+        long tcNo = Long.parseLong(args[1]);
+        // String name = args[1];
         PrintWriter pwPersonel = null, pwSaglik = null;
         try {
             db.connect(DB_NAME, DB_USER, DB_PW);
@@ -42,20 +46,26 @@ public final class App {
             System.out.println(personelForms);
             System.out.println(saglikForms);
             Optional<PersonelForm> pForm = personelForms.stream()
-                .filter(p -> p.getAd().equals(name))
+                .filter(p -> p.getTcNo() == tcNo)
                 .findFirst();
             Optional<SaglikForm> sForm = saglikForms.stream()
-                .filter(p -> p.getAd().equals(name))
+                .filter(p -> p.getTcNo() == tcNo)
                 .findFirst();
             if (pForm.isPresent()) {
                 PersonelForm form = pForm.get();
                 pwPersonel = new PrintWriter(PERSONEL_FILE, "UTF-8");
                 pwPersonel.println(form.toString());
+            } else {
+                gotError = true;
+                System.out.println("Error: Couldn't find personel entry for tc id: " + String.valueOf(tcNo));
             }
             if (sForm.isPresent()) {
                 SaglikForm form = sForm.get();
                 pwSaglik = new PrintWriter(SAGLIK_FILE, "UTF-8");
                 pwSaglik.println(form.toString());
+            } else {
+                gotError = true;
+                System.out.println("Error: Couldn't find saglik entry for tc id: " + String.valueOf(tcNo));
             }
         } finally {
             db.disconnect();

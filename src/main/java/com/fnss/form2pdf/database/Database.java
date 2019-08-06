@@ -113,24 +113,23 @@ public class Database {
             stmt = mConnection.createStatement();
             ResultSet rs = stmt.executeQuery("Select * from " + SAGLIK_TABLE);
             while (rs.next()) {
-
+                String ad = rs.getString(1);
+                String soyad = rs.getString(2);
+                long tcNo = rs.getLong(11);
+                // GregorianCalendar dtarihi = (3);
+                long telno = rs.getLong(4);
+                String hastalik = rs.getString(5);
+                String ilac = rs.getString(6);
+                String ameliyat = rs.getString(7);
+                String alerji = rs.getString(10);
+                double boy =  rs.getDouble(8);
+                boolean sigara = rs.getBoolean(9);  
+                forms.add(new SaglikForm(
+                    ad, soyad, tcNo, dummy,
+                    telno, hastalik, ilac, ameliyat,
+                    alerji, boy, sigara
+                ));       
             }
-            String ad = rs.getString(1);
-            String soyad = rs.getString(2);
-            long tcNo = rs.getLong(11);
-            // GregorianCalendar dtarihi = (3);
-            long telno = rs.getLong(4);
-            String hastalik = rs.getString(5);
-            String ilac = rs.getString(6);
-            String ameliyat = rs.getString(7);
-            String alerji = rs.getString(10);
-            double boy =  rs.getDouble(8);
-            boolean sigara = rs.getBoolean(9);  
-            forms.add(new SaglikForm(
-                ad, soyad, tcNo, dummy,
-                telno, hastalik, ilac, ameliyat,
-                alerji, boy, sigara
-            ));       
         } finally {
             stmt.close();
         }
